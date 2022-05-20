@@ -1,12 +1,14 @@
 
 #include "GameHeader.hpp"
 
-// g++ Main.cpp Game.cpp -o Main.exe
+// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra
 
-int main(int argc, char** argv)
+int main()
 {
+    
     OurMap Pib;
     Pib.d=3;
+
     std::cout<<Pib.d;
     std::cout<<std::endl; 
     Pib.PrintMap();

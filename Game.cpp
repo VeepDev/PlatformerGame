@@ -22,4 +22,15 @@ void OurMap::PrintMap(){
   }
 }
 
+                         //Chooses Symbol for player
+Player::Player(char a){
+  Avatar=a;
+}
+
+                                                       //Set cordinate, sets the player position, could be used for when
+                                                       //game instance is initialized, doors to other maps
+void Player::SetCords(unsigned int x, unsigned int y){
+  Xcord=x;
+  Ycord=y;
+}
 
