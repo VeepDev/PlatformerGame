@@ -25,10 +25,14 @@ void OurMap::PrintMap(){
                          //Chooses Symbol for player
 Player::Player(){
   Avatar='#';
+  Prev='.';
+  PrevXcord=0;
+  PrevYcord=0;
 }
 
 Player::Player(char a){
   Avatar=a;
+  Prev='.';
 }
 
                                                        //Set cordinate, sets the player position, could be used for when
@@ -37,6 +41,15 @@ void Player::SetCords(unsigned int x, unsigned int y){
   Xcord=x;
   Ycord=y;
 }
+
+char Player::getAvatar(){
+  return Avatar;
+}
+
+                                         //This will print our player each time
+//void Player::PrintPlayer(OurMap Map1){                                
+//    return;
+//}
 
 GameInstance:: GameInstance(const GameInstance & other){
   Level=other.Level;
@@ -63,12 +76,73 @@ void GameInstance::RunGame(){
 
 }
 
+void GameInstance::PlayRun(){
+
+  bool movementFlag=0;  //We will use this to determine when to stop moving, such as reaching destination
+  char x;
+  bool NoPrev=false;
+  //We need to reference cordinates each time to print character in right spot, this will hold x,y
+
+  while(!movementFlag){
+    if(NoPrev==true){
+    P1.Prev=Level.EntireMap[P1.PrevXcord][P1.PrevYcord];}
+    NoPrev=false;
+    
+    P1.PrevXcord=P1.Xcord;
+    P1.PrevYcord=P1.Ycord;
+    //Level.EntireMap[P1.Xcord][P1.Ycord]=P1.Prev;
+    x=' ';
+    
+
+    std::cin >> x;
+
+    
+    
+    switch (x)
+    {
+    case 'l':
+      std::cout << "right";
+      P1.SetCords(P1.Xcord+1,P1.Ycord);
+      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+      break;
+
+    case 'j':
+      /* code */
+      P1.SetCords(P1.Xcord-1,P1.Ycord);
+      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+      break; 
+
+    case 'i':
+      /* code */
+      P1.SetCords(P1.Xcord,P1.Ycord+1);
+      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+      break; 
+      
+    case 'k':
+      /* code */
+      P1.SetCords(P1.Xcord,P1.Ycord-1);
+      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+      break;
+    
+    case 'e':
+      movementFlag=1;
+      break;
+
+    default:
+      break;
+    }
+    
+
+  }
+
+}
+                                                       //This function contains the thread, which will print the map each time, and run the game
 void StartGame(GameInstance OurInstance){
 
   std::thread GameThread(&GameInstance::RunGame,&OurInstance);
  
-
-  std::cin.get();
+  OurInstance.PlayRun();
+  //std::cin.get();
   OurInstance.isRunning = ATOMIC_VAR_INIT(true); //maybe due the atomic initialization to true
   
   GameThread.join();

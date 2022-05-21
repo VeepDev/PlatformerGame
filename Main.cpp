@@ -24,6 +24,7 @@ int main()
     Pib2.PrintMap();
 
     Player PlayerMeep('@');
+    PlayerMeep.SetCords(1,2);
 
     GameInstance Instance1(Pib2,PlayerMeep);
     StartGame(Instance1);
