@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <thread>
+#include <atomic>
 
              //This will be the map itself,
 class OurMap{
@@ -24,6 +26,7 @@ private:
              //This will be our Character
 class Player{
 public:
+Player();
 Player(char a);
 void SetCords(unsigned int x, unsigned int y);
 private:
@@ -32,9 +35,17 @@ unsigned int Xcord;
 unsigned int Ycord;
 };
 
-
+                     //Idea for game running, give it small amount of time, if nothing we proceed, if key pressed we moves
 class GameInstance{
     public:
+   
+    GameInstance(OurMap level, Player player1);
+    GameInstance(const GameInstance & other);
     OurMap Level;
     Player P1;
+    void RunGame();   //THIS will be the game running itself, pretty important 
+    std::atomic<bool> isRunning;   //This bool will be used to tell if the game is still running
+  
 };
+
+void StartGame(GameInstance OurInstance);

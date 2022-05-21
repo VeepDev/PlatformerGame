@@ -1,7 +1,12 @@
 
 #include "GameHeader.hpp"
 
-// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra
+// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra -lpthread
+
+//Explained a little bit, the first two files are what we are using to make the executable
+// the -o lets us entere the name for our executable "Main.exe", the next few are just 
+// recommended for debugging, and then -lpthread is used because we utilize threads while
+// running our game
 
 int main()
 {
@@ -17,6 +22,11 @@ int main()
     unsigned int B=30; 
     OurMap Pib2(A,B);
     Pib2.PrintMap();
+
+    Player PlayerMeep('@');
+
+    GameInstance Instance1(Pib2,PlayerMeep);
+    StartGame(Instance1);
 
     return 1;
 }
