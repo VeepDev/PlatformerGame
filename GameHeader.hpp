@@ -5,6 +5,8 @@
 #include <list>
 #include <thread>
 #include <atomic>
+#include <ncurses.h>
+
 
              //This will be the map itself,
 class OurMap{

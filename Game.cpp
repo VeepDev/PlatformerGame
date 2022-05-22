@@ -86,7 +86,8 @@ void GameInstance::PlayRun(){
   while(!movementFlag){
     if(NoPrev==true){
     P1.Prev=Level.EntireMap[P1.PrevXcord][P1.PrevYcord];}
-    NoPrev=false;
+    
+    NoPrev=true;
     
     P1.PrevXcord=P1.Xcord;
     P1.PrevYcord=P1.Ycord;
@@ -94,34 +95,51 @@ void GameInstance::PlayRun(){
     x=' ';
     
 
-    std::cin >> x;
-
+    std::cin >> x;                          //HEYYYYYYYYYYYY, we need to do bound checking, prinrtr previous, chang cin to getch() so we need not press enters
+    //initscr();
+	  //cbreak();                                  //Might wanna check the gameegine one lone coder video
+    //timeout(1);
+    //endwin();
+    //x=getch();
+    //endwin();
+    
     
     
     switch (x)
     {
-    case 'l':
-      std::cout << "right";
+    case 'k':
       P1.SetCords(P1.Xcord+1,P1.Ycord);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
-      break;
 
-    case 'j':
-      /* code */
-      P1.SetCords(P1.Xcord-1,P1.Ycord);
-      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
-      break; 
+    if(NoPrev==true){
+    Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev;}
+      break;
 
     case 'i':
       /* code */
+      P1.SetCords(P1.Xcord-1,P1.Ycord);
+      Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+
+    if(NoPrev==true){
+    Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev;}
+      break; 
+
+    case 'l':
+      /* code */
       P1.SetCords(P1.Xcord,P1.Ycord+1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+
+    if(NoPrev==true){
+    Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev;}
       break; 
       
-    case 'k':
+    case 'j':
       /* code */
       P1.SetCords(P1.Xcord,P1.Ycord-1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+
+    if(NoPrev==true){
+    Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev;}
       break;
     
     case 'e':

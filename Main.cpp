@@ -1,12 +1,13 @@
 
 #include "GameHeader.hpp"
 
-// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra -lpthread
+// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra -lpthread -lncurses
 
 //Explained a little bit, the first two files are what we are using to make the executable
 // the -o lets us entere the name for our executable "Main.exe", the next few are just 
 // recommended for debugging, and then -lpthread is used because we utilize threads while
 // running our game
+//-lncurses is for the getch, not sure if we will kepp this
 
 int main()
 {
