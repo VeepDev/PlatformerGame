@@ -5,7 +5,10 @@
 #include <list>
 #include <thread>
 #include <atomic>
+//#include <windows.h>
 #include <ncurses.h>
+
+
 
 
              //This will be the map itself,
@@ -16,6 +19,7 @@ public:
  int d;
  void PrintMap();   //Prints entire map
  void PrintScreen(); //Prnts the Camera, a portion of the map we are at
+ void UpdateMap(unsigned int x, unsigned int y, char c); //Updates the map, and will do bound checking
  std::vector<std::vector<char>> EntireMap;  //matrix holding the map as chars
  
 private:

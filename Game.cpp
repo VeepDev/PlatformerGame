@@ -22,6 +22,22 @@ void OurMap::PrintMap(){
   }
 }
 
+void OurMap::UpdateMap(unsigned int x, unsigned int y, char c){
+                        //The if statements are bound checking
+         unsigned int a;
+         unsigned int b;
+         if(x<0){a=0;}
+         else{if(x>HeightMap){a=HeightMap;}
+         else{a=x;}}
+         
+         if(y<0){b=0;}
+         else{if(y>WidthMap){b=WidthMap;}
+         else{b=y;}}
+
+         EntireMap[a][b]=c;
+         return;
+}
+
                          //Chooses Symbol for player
 Player::Player(){
   Avatar='#';
@@ -99,9 +115,11 @@ void GameInstance::PlayRun(){
     //initscr();
 	  //cbreak();                                  //Might wanna check the gameegine one lone coder video
     //timeout(1);
+    
     //endwin();
     //x=getch();
     //endwin();
+    //GetAsnycKey();
     
     
     

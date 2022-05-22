@@ -128,7 +128,7 @@ http://www.twitch.tv/javidx9
 Character Set -> Use Unicode. Thanks! - Javidx9
 #endif
 
-#include <windows.h>
+#include "windows.h"
 
 #include <iostream>
 #include <chrono>
@@ -850,7 +850,7 @@ private:
 				// Handle Keyboard Input
 				for (int i = 0; i < 256; i++)
 				{
-					m_keyNewState[i] = GetAsyncKeyState(i);
+					m_keyNewState[i] = GetAsyncKeyState(i); key
 
 					m_keys[i].bPressed = false;
 					m_keys[i].bReleased = false;
