@@ -114,10 +114,11 @@ void GameInstance::PlayRun(){
   bool movementFlag=0;  //We will use this to determine when to stop moving, such as reaching destination
   char x;
   bool NoPrev=false;
+  bool Collided=false;  //This will be used to tell if we collided, mostly for printing our prev, if we did collide there is no need to print prev
   //We need to reference cordinates each time to print character in right spot, this will hold x,y
 
   while(!movementFlag){
-    if(NoPrev==true){
+    if(NoPrev==true && Collided==false){
     P1.Prev=Level.EntireMap[P1.PrevXcord][P1.PrevYcord];}
     
     NoPrev=true;
@@ -145,6 +146,7 @@ void GameInstance::PlayRun(){
     {
     case 'k':
       if(!P1.CanCollide(P1.Xcord+1,P1.Ycord,Level)){break;}
+      Collided=true;
       P1.SetCords(P1.Xcord+1,P1.Ycord);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
@@ -155,6 +157,7 @@ void GameInstance::PlayRun(){
     case 'i':
       /* code */
       if(!P1.CanCollide(P1.Xcord-1,P1.Ycord,Level)){break;}
+      Collided=true;
       P1.SetCords(P1.Xcord-1,P1.Ycord);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
@@ -165,6 +168,7 @@ void GameInstance::PlayRun(){
     case 'l':
       /* code */
       if(!P1.CanCollide(P1.Xcord,P1.Ycord+1,Level)){break;}
+      Collided=true;
       P1.SetCords(P1.Xcord,P1.Ycord+1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
      
@@ -176,6 +180,7 @@ void GameInstance::PlayRun(){
     case 'j':
       /* code */
       if(!P1.CanCollide(P1.Xcord,P1.Ycord-1,Level)){break;}
+      Collided=true;
       P1.SetCords(P1.Xcord,P1.Ycord-1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
