@@ -22,6 +22,21 @@ int main()
     unsigned int A=8;
     unsigned int B=30; 
     OurMap Pib2(A,B);
+
+    std::vector<char> dafloor(30,'#');
+    Pib2.EntireMap[7]=dafloor;
+
+    for(unsigned int i=0;i<B;i+=3){
+    Pib2.EntireMap[6][i]='#';}
+
+     for(unsigned int i=0;i<B;i++){
+    if(i>5 && i<25){     
+    Pib2.EntireMap[3][i]='#';}}
+
+     for(unsigned int i=0;i<A;i++){
+    if(i>1 && i<A){     
+    Pib2.EntireMap[i][15]='#';}}
+
     Pib2.PrintMap();
 
     Player PlayerMeep('@');

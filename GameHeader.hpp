@@ -21,8 +21,6 @@ public:
  void PrintScreen(); //Prnts the Camera, a portion of the map we are at
  void UpdateMap(unsigned int x, unsigned int y, char c); //Updates the map, and will do bound checking
  std::vector<std::vector<char>> EntireMap;  //matrix holding the map as chars
- 
-private:
  unsigned int WidthMap;
  unsigned int HeightMap;
 };
@@ -31,7 +29,10 @@ private:
 class OurCamera{
     public:
     OurCamera();
-    private:
+    void UpdateCamera();
+    std::vector<std::vector<char>> Camera;
+    unsigned int WidthCamera;
+    unsigned int HeightCamera;
 
 };
              //This will be our Character
@@ -39,7 +40,9 @@ class Player{
 public:
 Player();
 Player(char a);
+bool CanCollide(unsigned int a, unsigned int b,OurMap m); //This is used to check the block we will be interfering with and tell if we can collide or not
 void SetCords(unsigned int x, unsigned int y);
+void SetCords(unsigned int x, unsigned int y,OurMap m); //Not used for now
 void PrintPlayer(OurMap Map1);
 
 char Prev; //We get the previous tile and print it so the map returns to normal a.k.a, it wont leave a path of itself

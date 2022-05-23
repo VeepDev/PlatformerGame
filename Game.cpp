@@ -26,12 +26,12 @@ void OurMap::UpdateMap(unsigned int x, unsigned int y, char c){
                         //The if statements are bound checking
          unsigned int a;
          unsigned int b;
-         if(x<0){a=0;}
-         else{if(x>HeightMap){a=HeightMap;}
+         if(x<1){a=1;}
+         else{if(x==WidthMap){a=WidthMap-1;}
          else{a=x;}}
          
-         if(y<0){b=0;}
-         else{if(y>WidthMap){b=WidthMap;}
+         if(y<1){b=1;}
+         else{if(y>HeightMap-2){b=HeightMap-1;}
          else{b=y;}}
 
          EntireMap[a][b]=c;
@@ -51,11 +51,28 @@ Player::Player(char a){
   Prev='.';
 }
 
+                                                                  //This is used to check the block we will be interfering with and tell if we can collide or not
+bool Player::CanCollide(unsigned int a, unsigned int b, OurMap m){
+  return m.EntireMap[a][b]=='.';
+}
+
+
+
                                                        //Set cordinate, sets the player position, could be used for when
                                                        //game instance is initialized, doors to other maps
 void Player::SetCords(unsigned int x, unsigned int y){
   Xcord=x;
   Ycord=y;
+}
+
+void Player::SetCords(unsigned int x, unsigned int y,OurMap m){
+  if(x>m.WidthMap-1){x=m.WidthMap-1;}
+  else{Xcord=x;}
+  
+  if(y>m.HeightMap-1){y=m.HeightMap-1;}
+  else{Ycord=y;}
+  
+  
 }
 
 char Player::getAvatar(){
@@ -126,6 +143,7 @@ void GameInstance::PlayRun(){
     switch (x)
     {
     case 'k':
+      if(!P1.CanCollide(P1.Xcord+1,P1.Ycord,Level)){break;}
       P1.SetCords(P1.Xcord+1,P1.Ycord);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
@@ -135,6 +153,7 @@ void GameInstance::PlayRun(){
 
     case 'i':
       /* code */
+      if(!P1.CanCollide(P1.Xcord-1,P1.Ycord,Level)){break;}
       P1.SetCords(P1.Xcord-1,P1.Ycord);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
@@ -144,8 +163,10 @@ void GameInstance::PlayRun(){
 
     case 'l':
       /* code */
+      if(!P1.CanCollide(P1.Xcord,P1.Ycord+1,Level)){break;}
       P1.SetCords(P1.Xcord,P1.Ycord+1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
+     
 
     if(NoPrev==true){
     Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev;}
@@ -153,6 +174,7 @@ void GameInstance::PlayRun(){
       
     case 'j':
       /* code */
+      if(!P1.CanCollide(P1.Xcord,P1.Ycord-1,Level)){break;}
       P1.SetCords(P1.Xcord,P1.Ycord-1);
       Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar();
 
