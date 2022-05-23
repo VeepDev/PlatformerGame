@@ -128,7 +128,7 @@ void GameInstance::PlayRun(){
     x=' ';
     
 
-    std::cin >> x;                          //HEYYYYYYYYYYYY, we need to do bound checking, prinrtr previous, chang cin to getch() so we need not press enters
+    //std::cin >> x;                          //HEYYYYYYYYYYYY, we need to do bound checking, prinrtr previous, chang cin to getch() so we need not press enters
     //initscr();
 	  //cbreak();                                  //Might wanna check the gameegine one lone coder video
     //timeout(1);
@@ -137,8 +137,9 @@ void GameInstance::PlayRun(){
     //x=getch();
     //endwin();
     //GetAsnycKey();
-    
-    
+    system("stty cbreak -echo");                      //This could be our big solution???? What!
+    x=getchar();
+    system("stty cooked echo");
     
     switch (x)
     {
