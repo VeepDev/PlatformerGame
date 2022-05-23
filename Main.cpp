@@ -20,13 +20,13 @@ int main()
     Pib.PrintMap();
 
     unsigned int A=8;
-    unsigned int B=30; 
+    unsigned int B=130; 
     OurMap Pib2(A,B);
 
-    std::vector<char> dafloor(30,'#');
+    std::vector<char> dafloor(B,'#');
     Pib2.EntireMap[7]=dafloor;
 
-    for(unsigned int i=0;i<B;i+=3){
+    for(unsigned int i=0;i<B;i+=6){
     Pib2.EntireMap[6][i]='#';}
 
      for(unsigned int i=0;i<B;i++){
@@ -40,9 +40,14 @@ int main()
     Pib2.PrintMap();
 
     Player PlayerMeep('@');
-    PlayerMeep.SetCords(1,2);
+    PlayerMeep.SetCords(1,5);
 
     GameInstance Instance1(Pib2,PlayerMeep);
+    
+    bool gravityon=true;
+    unsigned int gravityspd=10;
+    Instance1.SetGravity(gravityon,gravityspd);
+    
     StartGame(Instance1);
 
     return 1;

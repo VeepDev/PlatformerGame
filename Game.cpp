@@ -87,6 +87,10 @@ char Player::getAvatar(){
 GameInstance:: GameInstance(const GameInstance & other){
   Level=other.Level;
   P1=other.P1;
+
+  isGravity=other.isGravity;
+  speedGravity=other.speedGravity;
+
   isRunning=ATOMIC_VAR_INIT(false);
 }
 
@@ -94,17 +98,40 @@ GameInstance::GameInstance(OurMap levelx,Player player1){
   Level=levelx;
   P1=player1;
   isRunning=ATOMIC_VAR_INIT(false);
+  isGravity=false;
 }
 
+void GameInstance::SetGravity(bool flag,int speed){
+    isGravity=flag;
+    speedGravity=speed;
+}
+                                                 //I'm using a counter and modulo to determine the speed of the Gravity,
+                                                 //I used a counter so it was not at the same speed as printing (that is too fast)
+                                                 //The speedGravity determines the rate at which gravity happens, smaller equals faster
+                                                 //because it is modulo'd
+void GameInstance::GravityOn(int &counter){
+  if(isGravity && counter % speedGravity == 0 && P1.CanCollide(P1.Xcord+1,P1.Ycord,Level)){
+     P1.SetCords(P1.Xcord+1,P1.Ycord);
+     counter=0;
+  }
+  
+  counter++;
+  
+  return;
+}
                                                      //This prints the screen each time, our actual
                                                      //game running pretty much
 void GameInstance::RunGame(){
 
        using namespace std::literals::chrono_literals;
-
+       
+       int counter=0;
        while(!isRunning){
        Level.PrintMap();
-       std::this_thread::sleep_for(1s);
+       std::this_thread::sleep_for(0.1s);   //0.1 for really good
+       
+       GravityOn(counter);
+
        }
 
 }

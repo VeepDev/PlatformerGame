@@ -64,6 +64,12 @@ class GameInstance{
     GameInstance(const GameInstance & other);
     OurMap Level;
     Player P1;
+ 
+    void SetGravity(bool flag, int speed);  //
+    bool isGravity;        //This tell us whether Gravity has been set on or off in options
+    int  speedGravity;     //This is the intensity of Gravity
+    void GravityOn(int &counter); //This actually controls/makes the gravity happen
+
     void PlayRun();    //This function controls the movement of the character
     void RunGame();   //THIS will be the game running itself, pretty important 
     std::atomic<bool> isRunning;   //This bool will be used to tell if the game is still running
