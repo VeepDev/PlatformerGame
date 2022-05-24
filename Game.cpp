@@ -61,6 +61,8 @@ bool Player::CanCollide(unsigned int a, unsigned int b, OurMap m){
                                                        //Set cordinate, sets the player position, could be used for when
                                                        //game instance is initialized, doors to other maps
 void Player::SetCords(unsigned int x, unsigned int y){
+  PrevXcord=Xcord;
+  PrevYcord=Ycord;
   Xcord=x;
   Ycord=y;
 }
@@ -111,10 +113,16 @@ void GameInstance::SetGravity(bool flag,int speed){
                                                  //because it is modulo'd
 void GameInstance::GravityOn(int &counter){
   if(isGravity && counter % speedGravity == 0 && P1.CanCollide(P1.Xcord+1,P1.Ycord,Level)){
+   
      P1.SetCords(P1.Xcord+1,P1.Ycord);
+     
      counter=0;
+     Level.EntireMap[P1.PrevXcord][P1.PrevYcord]=P1.Prev; //So that character does not leave trail of itself
+     Level.EntireMap[P1.Xcord][P1.Ycord]=P1.getAvatar(); //Moves character on actual map
+     
+ 
   }
-  
+ 
   counter++;
   
   return;
@@ -145,8 +153,8 @@ void GameInstance::PlayRun(){
   //We need to reference cordinates each time to print character in right spot, this will hold x,y
 
   while(!movementFlag){
-    if(NoPrev==true && Collided==false){
-    P1.Prev=Level.EntireMap[P1.PrevXcord][P1.PrevYcord];}
+    if(NoPrev==true && Collided==false){                         //NOTE: The last condition prevents the previous from being character itself
+    P1.Prev=Level.EntireMap[P1.PrevXcord][P1.PrevYcord];}           //If we plan on including such a feature we can remove this
     
     NoPrev=true;
     
@@ -156,9 +164,9 @@ void GameInstance::PlayRun(){
     x=' ';
     
 
-    //std::cin >> x;                          //HEYYYYYYYYYYYY, we need to do bound checking, prinrtr previous, chang cin to getch() so we need not press enters
+    //std::cin >> x;                          
     //initscr();
-	  //cbreak();                                  //Might wanna check the gameegine one lone coder video
+	  //cbreak();                                  //Ignore this for now
     //timeout(1);
     
     //endwin();
