@@ -6,8 +6,7 @@
 #include <thread>
 #include <atomic>
 #include <SDL2/SDL.h>
-//#include <windows.h>
-//#include <ncurses.h>
+
 
 
 
@@ -27,11 +26,16 @@ public:
 };
 
                   //This will be a portion of our map, and we will print our character on it
+                  //This is where our ascii will be rendered to pixels
 class OurCamera{
     public:
     OurCamera();
-    void UpdateCamera();
+    //OurCamera(const OurCamera & other);
+    OurCamera(OurMap aMap);
+    void OpenCamera();            //Will create and open the window/console itself 
+    void PrintCamera();           //Will print pixels onto console
     std::vector<std::vector<char>> Camera;
+    OurMap CamMap;                //The map the camera will follow
     unsigned int WidthCamera;
     unsigned int HeightCamera;
 
@@ -65,6 +69,11 @@ class GameInstance{
     GameInstance(const GameInstance & other);
     OurMap Level;
     Player P1;
+
+    OurCamera Screen;
+    void SetCam(bool flag);
+    bool CamOn;      //This will be always on for actual game, but when we want to
+                     //test and see the game as ascii in terminal we will turn it off
  
     void SetGravity(bool flag, int speed);  //
     bool isGravity;        //This tell us whether Gravity has been set on or off in options

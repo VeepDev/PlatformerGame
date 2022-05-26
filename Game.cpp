@@ -99,8 +99,15 @@ GameInstance:: GameInstance(const GameInstance & other){
 GameInstance::GameInstance(OurMap levelx,Player player1){
   Level=levelx;
   P1=player1;
+  Screen= OurCamera(levelx);
   isRunning=ATOMIC_VAR_INIT(false);
   isGravity=false;
+  CamOn=false;
+}
+
+void GameInstance::SetCam(bool flag){     //If this is true we will be printing the pixels each time instead of ascii to terminal
+  CamOn=flag;
+
 }
 
 void GameInstance::SetGravity(bool flag,int speed){
@@ -249,3 +256,42 @@ void StartGame(GameInstance OurInstance){
 
 }
 
+
+                                                 //Camera Class has to do with printing the Pixels and handling the Window/Display
+
+OurCamera::OurCamera(){
+    CamMap= OurMap();
+}
+
+OurCamera::OurCamera(OurMap aMap){
+  CamMap=aMap;
+}
+
+//OurCamera::OurCamera(const OurCamera & other){
+//  CamMap=other.CamMap;
+//}
+
+
+void OurCamera::PrintCamera(){
+     
+}
+
+void OurCamera::OpenCamera(){
+  SDL_Window* window=nullptr;
+  SDL_Renderer* renderer=nullptr;
+  
+
+  SDL_Init(SDL_INIT_VIDEO);
+  SDL_CreateWindowAndRenderer(640*4,480*4,0,&window,&renderer);
+  SDL_RenderSetScale(renderer,4,4);
+
+  SDL_SetRenderDrawColor(renderer,0,0,0,255);
+  SDL_RenderClear(renderer);
+
+  SDL_SetRenderDrawColor(renderer,255,255,255,255);
+  SDL_RenderDrawPoint(renderer,640/2,480/2);
+
+  SDL_RenderPresent(renderer);
+  SDL_Delay(10000);
+
+}

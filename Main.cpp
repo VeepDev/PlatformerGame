@@ -53,5 +53,7 @@ int main()
     
     StartGame(Instance1);
 
+    //Instance1.Screen.OpenCamera();
+
     return 1;
 }
