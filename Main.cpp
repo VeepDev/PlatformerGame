@@ -1,7 +1,10 @@
 
 #include "GameHeader.hpp"
 
-// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra -lpthread -lncurses
+// g++ Main.cpp Game.cpp -o Main.exe -std=c++14 -pedantic -Wall -Wextra -lpthread
+// g++ -Isrc/Include -Lsrc/lib -o Main.exe Game.cpp Main.cpp -lSDL2 -lSDL2main -lpthread -std=c++14 -pedantic -Wall -Wextra 
+//The second one is what's located in the make file,
+
 
 //Explained a little bit, the first two files are what we are using to make the executable
 // the -o lets us entere the name for our executable "Main.exe", the next few are just 

@@ -5,8 +5,9 @@
 #include <list>
 #include <thread>
 #include <atomic>
+#include <SDL2/SDL.h>
 //#include <windows.h>
-#include <ncurses.h>
+//#include <ncurses.h>
 
 
 
