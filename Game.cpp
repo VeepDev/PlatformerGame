@@ -143,7 +143,7 @@ void GameInstance::RunGame(){
        int counter=0;
        while(!isRunning){
        Level.PrintMap();
-       std::this_thread::sleep_for(0.1s);   //0.1 for really good
+       std::this_thread::sleep_for(0.1s);   //0.1 for really good   //std::this_thread originally
        
        GravityOn(counter);
 
@@ -276,22 +276,16 @@ void OurCamera::PrintCamera(){
      
 }
 
-void OurCamera::OpenCamera(){
+void OurCamera::OpenCamera(int argc, char *argv[]){
   SDL_Window* window=nullptr;
-  SDL_Renderer* renderer=nullptr;
-  
 
-  SDL_Init(SDL_INIT_VIDEO);
-  SDL_CreateWindowAndRenderer(640*4,480*4,0,&window,&renderer);
-  SDL_RenderSetScale(renderer,4,4);
-
-  SDL_SetRenderDrawColor(renderer,0,0,0,255);
-  SDL_RenderClear(renderer);
-
-  SDL_SetRenderDrawColor(renderer,255,255,255,255);
-  SDL_RenderDrawPoint(renderer,640/2,480/2);
-
-  SDL_RenderPresent(renderer);
-  SDL_Delay(10000);
-
+  if(SDL_Init(SDL_INIT_VIDEO)<0){
+    std::cout<<"SDL could not be initialized: "<<SDL_GetError();
+    }
+    
+  window = SDL_CreateWindow("Test Window",0,000,640,480,SDL_WINDOW_SHOWN);
+  SDL_Delay(3000);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
+  return;
 }

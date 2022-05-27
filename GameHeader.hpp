@@ -32,7 +32,7 @@ class OurCamera{
     OurCamera();
     //OurCamera(const OurCamera & other);
     OurCamera(OurMap aMap);
-    void OpenCamera();            //Will create and open the window/console itself 
+    void OpenCamera(int argc, char *argv[]);            //Will create and open the window/console itself 
     void PrintCamera();           //Will print pixels onto console
     std::vector<std::vector<char>> Camera;
     OurMap CamMap;                //The map the camera will follow
