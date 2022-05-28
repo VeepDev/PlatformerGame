@@ -1,7 +1,7 @@
 
 #include "GameHeader.hpp"
 
-//g++ -I src/include -L src/lib -o Main.exe Game.cpp Main.cpp -lSDL2main -lSDL2  -lpthread -std=c++14
+//g++ -I src/include -L src/lib -o Main.exe Game.cpp Main.cpp -lmingw32 -lSDL2main -lSDL2  -lpthread -std=c++14
 
 //Explained a little bit, the first two files are what we are using to make the executable
 // the -o lets us entere the name for our executable "Main.exe", the next few are just 
@@ -9,7 +9,7 @@
 // running our game
 //-lncurses is for the getch, not sure if we will kepp this
 
-int main()
+int main(int argc, char *argv[])
 {
     
     OurMap Pib;
@@ -50,7 +50,7 @@ int main()
     
     StartGame(Instance1);
 
-    Instance1.Screen.OpenCamera(int argc, char *argv[]);
+    Instance1.Screen.OpenCamera();
 
     return 1;
 }

@@ -1,6 +1,7 @@
 
 #include "GameHeader.hpp"
 
+
 OurMap::OurMap(){
     WidthMap=10;
     HeightMap=10;
@@ -134,6 +135,9 @@ void GameInstance::GravityOn(int &counter){
   
   return;
 }
+
+
+
                                                      //This prints the screen each time, our actual
                                                      //game running pretty much
 void GameInstance::RunGame(){
@@ -180,7 +184,7 @@ void GameInstance::PlayRun(){
     //x=getch();
     //endwin();
     //GetAsnycKey();
-    system("stty cbreak -echo");                      //This could be our big solution???? What!
+    system("stty cbreak -echo");                      //This only works on Linux
     x=getchar();
     system("stty cooked echo");
     
@@ -276,7 +280,7 @@ void OurCamera::PrintCamera(){
      
 }
 
-void OurCamera::OpenCamera(int argc, char *argv[]){
+void OurCamera::OpenCamera(){
   SDL_Window* window=nullptr;
 
   if(SDL_Init(SDL_INIT_VIDEO)<0){
@@ -288,4 +292,77 @@ void OurCamera::OpenCamera(int argc, char *argv[]){
   SDL_DestroyWindow(window);
   SDL_Quit();
   return;
+}
+
+GameEngineSDL::GameEngineSDL(){
+  isRunning=false;
+}
+
+void GameEngineSDL::GameInit(const char *title,bool fullscreen){
+  int flags = 0;
+  if(fullscreen){
+    flags = SDL_WINDOW_FULLSCREEN;
+  }
+  
+  if(SDL_Init(SDL_INIT_EVERYTHING)==0)
+  {
+    std::cout << "Subsystem Initialized" << std::endl;
+    
+    window = SDL_CreateWindow(title,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
+    if(window)
+    {
+      std::cout << "Window created" << std::endl;
+    }
+
+    renderer = SDL_CreateRenderer(window,-1,0);
+    if(renderer)
+    {
+      SDL_SetRenderDrawColor(renderer,255,155,155,255);
+      std::cout << "Renderer created!" << std::endl;
+    }
+    isRunning = true;
+  } else{isRunning=false;}
+   
+  
+  SDL_Surface* tmpSurface =IMG_Load("assets/Sprites/Characters/Kabluey.png");
+  if(tmpSurface ==NULL){
+  std::cout<< "humm why no work " << IMG_GetError();
+  }
+  playerTex = SDL_CreateTextureFromSurface(renderer,tmpSurface);
+  SDL_FreeSurface(tmpSurface);
+
+}
+
+void GameEngineSDL::handleEvents(){
+  SDL_Event event;
+  SDL_PollEvent(&event);
+  switch (event.type)
+  {
+  case SDL_QUIT:
+    isRunning=false;
+    break;
+  
+  default:
+    break;
+  }
+}
+
+void GameEngineSDL::update(){
+
+}
+
+void GameEngineSDL::render(){
+    SDL_RenderClear(renderer);
+    //render stuff here
+    //ideally, background, blocks, then entities
+    SDL_RenderCopy(renderer,playerTex,NULL,NULL);
+    SDL_RenderPresent(renderer);
+}
+
+void GameEngineSDL::clean(){
+
+  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(renderer);
+  SDL_Quit();
+  std::cout << "Game Cleaned" << std::endl;
 }

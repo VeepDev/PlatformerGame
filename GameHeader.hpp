@@ -1,11 +1,15 @@
 //This will be our header file
-
+#pragma once
 #include <iostream>
 #include <vector>
 #include <list>
 #include <thread>
 #include <atomic>
+#define SDL_MAIN_HANDLED  //Need this or we get compile errors
 #include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+
+
 
 
 
@@ -32,7 +36,7 @@ class OurCamera{
     OurCamera();
     //OurCamera(const OurCamera & other);
     OurCamera(OurMap aMap);
-    void OpenCamera(int argc, char *argv[]);            //Will create and open the window/console itself 
+    void OpenCamera();            //Will create and open the window/console itself 
     void PrintCamera();           //Will print pixels onto console
     std::vector<std::vector<char>> Camera;
     OurMap CamMap;                //The map the camera will follow
@@ -80,6 +84,8 @@ class GameInstance{
     int  speedGravity;     //This is the intensity of Gravity
     void GravityOn(int &counter); //This actually controls/makes the gravity happen
 
+     
+
     void PlayRun();    //This function controls the movement of the character
     void RunGame();   //THIS will be the game running itself, pretty important 
     std::atomic<bool> isRunning;   //This bool will be used to tell if the game is still running
@@ -87,3 +93,27 @@ class GameInstance{
 };
 
 void StartGame(GameInstance OurInstance);
+
+                     //Similar to GameInstance, but with use of SDL
+class GameEngineSDL{
+    public:
+    GameEngineSDL();
+    ~GameEngineSDL();
+
+    void GameInit(const char* title,bool fullscreen);
+
+    void handleEvents();
+    void update();
+    void render();
+    void clean();
+
+    bool running(){return isRunning;}
+
+    SDL_Texture* playerTex;
+
+    private:
+    bool isRunning;
+    SDL_Window *window;
+    SDL_Renderer *renderer; 
+
+};
